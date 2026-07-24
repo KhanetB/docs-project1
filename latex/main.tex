@@ -1,0 +1,143 @@
+% !TEX program = xelatex
+% Proposal Project 1 -- converted from "Proposal Project1.docx"
+% Compile with: xelatex main.tex (run twice for references/labels)
+%
+% File layout (edit content in sections/, not here):
+%   sections/00-cover.tex        หน้าปก
+%   sections/00-proposal-id.tex  หน้าเสนอเค้าโครงโครงงาน
+%   sections/01-title.tex        1. ชื่อหัวข้อโครงงาน
+%   sections/02-rationale.tex    2. หลักการและเหตุผล
+%   sections/03-objectives.tex   3. วัตถุประสงค์ของโครงงาน
+%   sections/04-theory.tex       4. ทฤษฎีและผลงานวิจัยที่เกี่ยวข้อง
+%   sections/05-methodology.tex  5. วิธีดำเนินการวิจัย
+%   sections/06-scope.tex        6. ขอบเขตและข้อจำกัดของการวิจัย
+%   sections/07-location.tex     7. สถานที่ทำวิจัย
+%   sections/08-benefits.tex     8. ประโยชน์ที่คาดว่าจะได้รับ
+%   sections/09-timeline.tex     9. แผนและระยะเวลาดำเนินการ
+%   sections/10-budget.tex       10. งบประมาณ
+%   sections/11-references.tex   11. เอกสารอ้างอิง
+%   sections/99-signature.tex    แบบฟอร์มรับรองจากที่ปรึกษา
+\documentclass[a4paper]{article}
+
+\usepackage{geometry}
+\geometry{a4paper, top=1.5in, left=1.5in, right=1in, bottom=1in, headheight=1in}
+
+\usepackage{fontspec}
+\setmainfont{THSarabunNew.ttf}[
+  Path = fonts/,
+  BoldFont = {THSarabunNew Bold.ttf},
+  ItalicFont = {THSarabunNew Italic.ttf},
+  BoldItalicFont = {THSarabunNew BoldItalic.ttf}
+]
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{indentfirst} % indent the first paragraph after a heading too
+
+% --- Thai figure/table caption names ---
+\renewcommand{\figurename}{ภาพที่}
+\renewcommand{\tablename}{ตารางที่}
+\captionsetup{labelsep=quad, justification=centering, font=bf}
+
+% --- Body content: headings "N.    หัวข้อ" size 14 bold (section) / size 14
+% normal (subsection, subsubsection), body text size 14 normal.
+%
+% Cascading indent: each level's number starts where the PREVIOUS level's
+% title text started, so the outline steps inward one level at a time
+% instead of every level sharing one column:
+%   5.      วิธีดำเนินการวิจัย            <- number at 0,      title at \lvlA
+%           5.1   การศึกษา...             <- number at \lvlA,  title at \lvlB
+%                 5.1.1   การศึกษา...     <- number at \lvlB,  title at \lvlC
+% The section-number box leaves a ~4-space gap after the number; the
+% subsection/subsubsection boxes leave a ~2-space gap (per spec). Body
+% paragraphs under each level are indented (via \global\parindent, set in
+% each heading's "before" hook) to line up with that level's title text.
+% Widths are measured (not guessed) so the gap is exactly 4 real interword
+% spaces after a section number, and exactly 2 after a subsection/subsubsection
+% number -- "11." is the widest section number in this document, "4.1" /
+% "4.2.1" are representative since every subsection/subsubsection number in
+% this document is the same character length at its level.
+\newlength{\lvlOneBox}
+\newlength{\lvlTwoBox}
+\newlength{\lvlThreeBox}
+\newlength{\fourspace}
+\newlength{\twospace}
+\settowidth{\fourspace}{\fontsize{14}{17}\selectfont\bfseries\ \ \ \ }
+\settowidth{\twospace}{\fontsize{14}{17}\selectfont\normalfont\ \ }
+\settowidth{\lvlOneBox}{\fontsize{14}{17}\selectfont\bfseries 11.}
+\addtolength{\lvlOneBox}{\fourspace}
+\settowidth{\lvlTwoBox}{\fontsize{14}{17}\selectfont\normalfont 4.1}
+\addtolength{\lvlTwoBox}{\twospace}
+\settowidth{\lvlThreeBox}{\fontsize{14}{17}\selectfont\normalfont 4.2.1}
+\addtolength{\lvlThreeBox}{\twospace}
+
+\newlength{\lvlA} \setlength{\lvlA}{\lvlOneBox}                    % section title start
+\newlength{\lvlB} \setlength{\lvlB}{\lvlA} \addtolength{\lvlB}{\lvlTwoBox}   % subsection title start
+\newlength{\lvlC} \setlength{\lvlC}{\lvlB} \addtolength{\lvlC}{\lvlThreeBox} % subsubsection title start
+
+\titleformat{\section}
+  {\fontsize{14}{17}\selectfont\bfseries}
+  {\makebox[\lvlOneBox][l]{\thesection.}}
+  {0pt}
+  {\global\parindent=\lvlA}
+
+\titleformat{\subsection}
+  {\fontsize{14}{17}\selectfont\normalfont}
+  {\hspace*{\lvlA}\makebox[\lvlTwoBox][l]{\thesubsection}}
+  {0pt}
+  {\global\parindent=\lvlB}
+
+\titleformat{\subsubsection}
+  {\fontsize{14}{17}\selectfont\normalfont}
+  {\hspace*{\lvlB}\makebox[\lvlThreeBox][l]{\thesubsubsection}}
+  {0pt}
+  {\global\parindent=\lvlC}
+
+\setlist[enumerate]{topsep=2pt, itemsep=2pt}
+\setlist[itemize]{topsep=2pt, itemsep=2pt}
+
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+\setstretch{1.15}
+\pagestyle{empty} % original document has no header/footer text or page numbers
+
+\begin{document}
+
+\input{sections/00-cover}
+
+\newpage
+
+\input{sections/00-proposal-id}
+
+% --- From here on: body content at size 14. \parindent is updated
+% automatically as each \section/\subsection/\subsubsection is issued (see
+% titleformat "before" hooks above), so this initial value only matters for
+% any stray text before the first heading.
+\fontsize{14}{17}\selectfont
+\setlength{\parindent}{\lvlA}
+
+\input{sections/01-title}
+\input{sections/02-rationale}
+\input{sections/03-objectives}
+\input{sections/04-theory}
+\input{sections/05-methodology}
+\input{sections/06-scope}
+\input{sections/07-location}
+\input{sections/08-benefits}
+\input{sections/09-timeline}
+\input{sections/10-budget}
+\input{sections/11-references}
+
+\newpage
+
+\input{sections/99-signature}
+
+\end{document}
